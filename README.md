@@ -15,3 +15,21 @@
 				没有登录的话，只能访问login和404页面，其他页面由后台控制。
 			layouts：整体布局模块，每个页面都会用到的固有布局，分为：私有的、公开的
 			redux：redux状态管理
+	3.在项目中添加一个菜单的流程：
+			一、编码：
+					1.在：src\pages\Edu建立文件夹：Subject\index.jsx
+					2.在：src\config\asyncComps.js文件中，引入上一步的路由组件，并暴露,代码如下：
+							const Subject = () => lazy(() => import("@/pages/Edu/Subject"));
+							export default {
+								....
+								Subject
+							};
+			二、配置：
+						1.去系统中：权限管理 ==> 菜单管理 ==> 教育管理后的加号
+						2.输入：
+								(1).菜单名称:分类管理
+								(2).访问路径:/subject/list
+								(3).组件路径:Subject
+						3.给菜单分配权限：
+									去系统中：权限管理 ==> 角色管理 ==> admin后的小齿轮，勾选分类管理
+
