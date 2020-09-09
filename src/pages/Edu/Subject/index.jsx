@@ -2,50 +2,57 @@ import React, { Component } from 'react'
 //引入antd的Card、Button组件
 import {Card,Button,Table} from 'antd'
 //引入图标
-import {PlusCircleOutlined} from '@ant-design/icons'
-
+import {PlusCircleOutlined,FormOutlined,DeleteOutlined} from '@ant-design/icons'
+//引入reqAllSubject发送请求
+import {reqAllSubject} from '@/api/edu/subject'
+//引入样式
+import './index.less'
 
 export default class Subject extends Component {
+
+	async componentDidMount (){
+		const result = await reqAllSubject()
+		console.log(result);
+	}
+
 	render() {
 		//dataSource是表格的数据源，后期一定是由于服务器返回
 		const dataSource = [
 			{
 				key: '1', //每条数据的唯一标识
-				name: '胡彦斌',
-				age: 32,
-				address: '西湖区湖底公园1号',
-				phone:'13634566543'
+				name: '测试分类一',
+				phone:'123123123'
 			},
 			{
 				key: '2',//每条数据的唯一标识
-				name: '胡彦祖',
-				age: 42,
-				address: '西湖区湖底公园1号',
-				phone:'13712344321'
+				name: '测试分类二',
+				phone:'123123123'
 			},
 		];
 		//columns是表格的列配置（重要）
 		const columns = [
 			{
-				title: '姓名', //列名
+				title: '分类名', //列名
 				dataIndex: 'name', //数据索引项
 				key: '0',
+				width:'80%'
 			},
 			{
-				title: '年龄',
-				dataIndex: 'age',
+				title: '操作',
+				dataIndex: 'name',
 				key: '1',
+				align:'center',
+				render:()=>(
+					<>
+						<Button className="left_btn" type="primary" icon={<FormOutlined/>}></Button>
+						<Button type="danger" icon={<DeleteOutlined/>}></Button>
+					</>
+				)
 			},
-			{
-				title: '住址',
-				dataIndex: 'address',
-				key: '2',
-			},
-			{
-				title: '手机号',
-				dataIndex: 'phone',
-				key: '3',
-			},
+			/* 
+					1.render和dataIndex同时存在的时候，以render为主。
+					2.render接收到的参数，由dataIndex控制,dataIndex若不写，则传递当前数据项所有内容
+			*/
 		];
 		return (
 			<Card 
