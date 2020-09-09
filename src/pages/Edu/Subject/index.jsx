@@ -3,37 +3,40 @@ import React, { Component } from 'react'
 import {Card,Button,Table} from 'antd'
 //引入图标
 import {PlusCircleOutlined,FormOutlined,DeleteOutlined} from '@ant-design/icons'
-//引入reqAllSubject发送请求
-import {reqAllSubject} from '@/api/edu/subject'
+//引入reqNo1SubjectPagination发送请求
+import {reqNo1SubjectPagination} from '@/api/edu/subject'
 //引入样式
 import './index.less'
 
 export default class Subject extends Component {
 
-	async componentDidMount (){
-		const result = await reqAllSubject()
-		console.log(result);
+	state = {
+		no1SubjectInfo:{ //存储一级分类数据
+			items:[],//当前页的一级分类数据
+			total:0 //数据总数
+		},
+		pageSize:5 //页大小
+	}
+
+	//根据：页码、页大小请求对应数据
+	getNo1SubjectPagination = async(page,pageSize=this.state.pageSize)=>{
+		const {items,total} = await reqNo1SubjectPagination(page,pageSize)
+		this.setState({no1SubjectInfo:{items,total}})
+	}
+
+	componentDidMount (){
+		//初始化第一页数据
+		this.getNo1SubjectPagination(1)
 	}
 
 	render() {
-		//dataSource是表格的数据源，后期一定是由于服务器返回
-		const dataSource = [
-			{
-				key: '1', //每条数据的唯一标识
-				name: '测试分类一',
-				phone:'123123123'
-			},
-			{
-				key: '2',//每条数据的唯一标识
-				name: '测试分类二',
-				phone:'123123123'
-			},
-		];
+		//从状态中获取所有一级分类数据
+		const {no1SubjectInfo:{total,items},pageSize} = this.state
 		//columns是表格的列配置（重要）
 		const columns = [
 			{
 				title: '分类名', //列名
-				dataIndex: 'name', //数据索引项
+				dataIndex: 'title', //数据索引项
 				key: '0',
 				width:'80%'
 			},
@@ -62,7 +65,16 @@ export default class Subject extends Component {
 					</Button>
 				}
 			>
-				<Table dataSource={dataSource} columns={columns} />
+				<Table 
+					dataSource={items} 
+					columns={columns} 
+					rowKey="_id" 
+					pagination={{
+						pageSize,
+						total,
+						onChange:(page)=>{this.getNo1SubjectPagination(page)}
+					}}
+				/>
 			</Card>
 		)
 	}

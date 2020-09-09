@@ -127,7 +127,8 @@ axiosInstance.interceptors.response.use(
         description: "您的网络发生异常，无法连接服务器",
         message: "网络异常",
       });
-    }
+		}
+		return new Promise(()=>{})
   }
 );
 
