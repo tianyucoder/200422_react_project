@@ -68,10 +68,6 @@ export default class Subject extends Component {
 		this.setState({expandedRowKeys:expandedIds})
 	}
 
-	demo = (expandedIds)=>{
-		this.setState({expandedRowKeys:expandedIds})
-	}
-
 	componentDidMount (){
 		//初始化第一页数据
 		this.getNo1SubjectPagination(1)
