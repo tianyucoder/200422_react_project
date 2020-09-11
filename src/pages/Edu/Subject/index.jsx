@@ -19,7 +19,7 @@ export default class Subject extends Component {
 			items:[],//当前页的一级分类数据
 			total:0 //数据总数
 		},
-		pageSize:3, //页大小
+		pageSize:5, //页大小
 		expandedRowKeys:[], //展开了的一级分类id数组
 		loading:false, //是否处于加载中
 		editSubjectId:'',//当前编辑的分类id
@@ -122,7 +122,7 @@ export default class Subject extends Component {
 				width:'80%',
 				render:(subject)=>(
 					subject._id === editSubjectId ?
-					<Input 
+					<Input
 						onChange={this.handleTitleChange} 
 						className="edit_input" 
 						type="text" 
@@ -170,12 +170,13 @@ export default class Subject extends Component {
 					rowKey="_id" //指定数据唯一属性
 					loading={loading}
 					expandable={{ //配置表格可展开项
-						//onExpand:this.handleExpand, //展开的回调 ---- 传入：是否为展开、当前展开项
+						// onExpand:this.handleExpand, //展开的回调 ---- 传入：是否为展开、当前展开项
 						onExpandedRowsChange:this.handleExpand,//展开的回调 --- 传入：处于展开状态的id数组
 						expandedRowKeys, //告诉Table展开了哪些项
 						
 						//如下配置适用于自身属性没来得及展示的这种情况，不适合发送网络请求
 						/* expandedRowRender: record => { //展开某项的回调
+							console.log('@');
 							return <span>{record.gmtCreate}</span>
 						}, 
 						rowExpandable: () => true //该项是否可以展开 */
@@ -184,9 +185,12 @@ export default class Subject extends Component {
 						pageSize,//页大小
 						total,//数据总数,
 						showSizeChanger:true,//展示快速跳转框
-						pageSizeOptions:['3','5','8','10','50'],//页大小备选项
+						showQuickJumper:true,
+						pageSizeOptions:['1','2','3','4','5','8','10','50'],//页大小备选项
 						onChange:(page)=>{this.getNo1SubjectPagination(page)},//页码改变的回调
-						onShowSizeChange:(_,pageSize)=>{this.getNo1SubjectPagination(1,pageSize)} //页大小改变的回调
+						onShowSizeChange:(_,pageSize)=>{//页大小改变的回调
+							this.getNo1SubjectPagination(1,pageSize)
+						} 
 					}}
 				/>
 			</Card>
