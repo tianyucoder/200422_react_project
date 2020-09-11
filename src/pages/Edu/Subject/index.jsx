@@ -20,7 +20,9 @@ export default class Subject extends Component {
 
 	//根据：页码、页大小请求对应数据
 	getNo1SubjectPagination = async(page,pageSize=this.state.pageSize)=>{
+		//发送请求获取数据
 		const {items,total} = await reqNo1SubjectPagination(page,pageSize)
+		//维护状态
 		this.setState({
 			no1SubjectInfo:{items,total},
 			pageSize
@@ -69,25 +71,24 @@ export default class Subject extends Component {
 				}
 			>
 				<Table 
-					dataSource={items} 
-					columns={columns} 
-					rowKey="_id" 
-					expandable={{
+					dataSource={items} //表格数据源
+					columns={columns} //表格列配置
+					rowKey="_id" //指定数据唯一属性
+					expandable={{ //配置表格可展开项
 
 						//如下配置适用于自身属性没来得及展示的这种情况，不适合发送网络请求
 						/* expandedRowRender: record => { //展开某项的回调
 							return <span>{record.gmtCreate}</span>
 						}, 
-						rowExpandable: () => true */
+						rowExpandable: () => true //该项是否可以展开 */
 					}}
 					pagination={{
 						pageSize,//页大小
 						total,//数据总数,
-						showSizeChanger:true,
-						showQuickJumper:true,
-						pageSizeOptions:['3','5','8','10','50'],
+						showSizeChanger:true,//展示快速跳转框
+						pageSizeOptions:['3','5','8','10','50'],//页大小备选项
 						onChange:(page)=>{this.getNo1SubjectPagination(page)},//页码改变的回调
-						onShowSizeChange:(_,pageSize)=>{this.getNo1SubjectPagination(1,pageSize)}
+						onShowSizeChange:(_,pageSize)=>{this.getNo1SubjectPagination(1,pageSize)} //页大小改变的回调
 					}}
 				/>
 			</Card>
