@@ -4,7 +4,7 @@ import {Card,Button,Table} from 'antd'
 //引入图标
 import {PlusCircleOutlined,FormOutlined,DeleteOutlined} from '@ant-design/icons'
 //引入reqNo1SubjectPagination发送请求
-import {reqNo1SubjectPagination} from '@/api/edu/subject'
+import {reqNo1SubjectPagination,reqAllNo2SubjectByNo1Id} from '@/api/edu/subject'
 //引入样式
 import './index.less'
 
@@ -15,18 +15,61 @@ export default class Subject extends Component {
 			items:[],//当前页的一级分类数据
 			total:0 //数据总数
 		},
-		pageSize:3 //页大小
+		pageSize:3, //页大小
+		expandedRowKeys:[] //展开了的一级分类id数组
 	}
 
 	//根据：页码、页大小请求对应数据
 	getNo1SubjectPagination = async(page,pageSize=this.state.pageSize)=>{
 		//发送请求获取数据
-		const {items,total} = await reqNo1SubjectPagination(page,pageSize)
+		let {items,total} = await reqNo1SubjectPagination(page,pageSize)
+		//加工请求回来的一级分类数组，给每一项都加children属性，目的的是可以展开
+		items = items.map(no1Subject => ({...no1Subject,children:[]}))
 		//维护状态
 		this.setState({
-			no1SubjectInfo:{items,total},
-			pageSize
+			no1SubjectInfo:{items,total}, //更新一级分类数据
+			pageSize,//更新页大小
+			expandedRowKeys:[]//清空之前展开过的分类
 		})
+	}
+
+	//点击展开按钮的回调
+	handleExpand = async(expandedIds)=>{
+		//从状态中获取:展开的一级分类、所有一级分类数据
+		const {expandedRowKeys,no1SubjectInfo} = this.state
+		//如果是展开
+		if(expandedRowKeys.length < expandedIds.length){
+			//获取当前展开项的id
+			const currentId = expandedIds.slice(-1)[0]
+			//获取当前展开项
+			const currentSubject = no1SubjectInfo.items.find(sub => sub._id === currentId)
+			//如果当前项没有展开过
+			if(!currentSubject.children.length){
+				//请求数据
+				const result = await reqAllNo2SubjectByNo1Id(currentId)
+				//获取二级分类数组
+				const {items} = result
+				//给指定一级分类追加children数据
+				const formatedNo1Items = no1SubjectInfo.items.map((no1Subject)=>{
+					//如果是当前展开的分类
+					if(no1Subject._id === currentId){
+						no1Subject.children = items
+						if(!items.length) delete no1Subject.children
+					}
+					return no1Subject
+				})
+				//维护状态
+				this.setState({
+					//更新一级分类数据
+					no1SubjectInfo:{...no1SubjectInfo,items:formatedNo1Items},
+				})
+			}
+		}
+		this.setState({expandedRowKeys:expandedIds})
+	}
+
+	demo = (expandedIds)=>{
+		this.setState({expandedRowKeys:expandedIds})
 	}
 
 	componentDidMount (){
@@ -36,7 +79,7 @@ export default class Subject extends Component {
 
 	render() {
 		//从状态中获取所有一级分类数据
-		const {no1SubjectInfo:{total,items},pageSize} = this.state
+		const {no1SubjectInfo:{total,items},pageSize,expandedRowKeys} = this.state
 		//columns是表格的列配置（重要）
 		const columns = [
 			{
@@ -75,6 +118,10 @@ export default class Subject extends Component {
 					columns={columns} //表格列配置
 					rowKey="_id" //指定数据唯一属性
 					expandable={{ //配置表格可展开项
+
+						//onExpand:this.handleExpand, //展开的回调 ---- 传入：是否为展开、当前展开项
+						onExpandedRowsChange:this.handleExpand,//展开的回调 --- 传入：处于展开状态的id数组
+						expandedRowKeys //告诉Table展开了哪些项
 
 						//如下配置适用于自身属性没来得及展示的这种情况，不适合发送网络请求
 						/* expandedRowRender: record => { //展开某项的回调

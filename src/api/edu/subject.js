@@ -24,3 +24,13 @@ export function reqNo1SubjectPagination(page,pageSize) {
     method: "GET",
   });
 }
+
+/**
+ * @param {一级分类id} no1SubjectId 
+ */
+export function reqAllNo2SubjectByNo1Id(no1SubjectId) {
+  return request({
+    url: `${BASE_URL}/get/${no1SubjectId}`,
+    method: "GET",
+  });
+}
