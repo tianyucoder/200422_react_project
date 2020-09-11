@@ -17,7 +17,7 @@ export default class Subject extends Component {
 		},
 		pageSize:3, //页大小
 		expandedRowKeys:[], //展开了的一级分类id数组
-		loading:false,
+		loading:false, //是否处于加载中
 		editSubjectId:'',//当前编辑的分类id
 		editSubjectTitle:''//当前编辑的分类titile
 	}
