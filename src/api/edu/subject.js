@@ -34,3 +34,15 @@ export function reqAllNo2SubjectByNo1Id(no1SubjectId) {
     method: "GET",
   });
 }
+
+/**
+ * @param {一级分类id} no1SubjectId 
+ * @name {分类id，更新分类名}
+ */
+export function reqUpdateSubject(id,title) {
+  return request({
+    url: `${BASE_URL}/update`,
+		method: "PUT",
+		data:{id,title}
+  });
+}

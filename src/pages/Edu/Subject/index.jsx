@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 //引入antd的Card、Button组件
-import {Card,Button,Table,Tooltip} from 'antd'
+import {Card,Button,Table,Tooltip,Input} from 'antd'
 //引入图标
 import {PlusCircleOutlined,FormOutlined,DeleteOutlined} from '@ant-design/icons'
 //引入reqNo1SubjectPagination发送请求
-import {reqNo1SubjectPagination,reqAllNo2SubjectByNo1Id} from '@/api/edu/subject'
+import {
+	reqNo1SubjectPagination,
+	reqAllNo2SubjectByNo1Id,
+	reqUpdateSubject
+} from '@/api/edu/subject'
 //引入样式
 import './index.less'
 
@@ -82,6 +86,19 @@ export default class Subject extends Component {
 		}
 	}
 
+	//用户更改title的回调
+	handleTitleChange = (event)=>{
+		this.setState({editSubjectTitle:event.target.value})
+	}
+
+	//编辑状态下，确认按钮的回调
+	updateSubject = async()=>{
+		const {editSubjectId,editSubjectTitle} = this.state
+		const result = await reqUpdateSubject(editSubjectId,editSubjectTitle)
+		this.getNo1SubjectPagination(1)
+		this.setState({editSubjectId:'',editSubjectTitle:''})
+	}
+
 	componentDidMount (){
 		//初始化第一页数据
 		this.getNo1SubjectPagination(1)
@@ -89,14 +106,29 @@ export default class Subject extends Component {
 
 	render() {
 		//从状态中获取所有一级分类数据
-		const {no1SubjectInfo:{total,items},pageSize,expandedRowKeys,loading} = this.state
+		const {
+			no1SubjectInfo:{total,items},
+			pageSize,
+			expandedRowKeys,
+			loading,
+			editSubjectId
+		} = this.state
 		//columns是表格的列配置（重要）
 		const columns = [
 			{
 				title: '分类名', //列名
-				dataIndex: 'title', //数据索引项
+				// dataIndex: 'title', //数据索引项
 				key: '0',
-				width:'80%'
+				width:'80%',
+				render:(subject)=>(
+					subject._id === editSubjectId ?
+					<Input 
+						onChange={this.handleTitleChange} 
+						className="edit_input" 
+						type="text" 
+						defaultValue={subject.title}
+					/>:subject.title
+				)
 			},
 			{
 				title: '操作',
@@ -104,6 +136,11 @@ export default class Subject extends Component {
 				key: '1',
 				align:'center',
 				render:(subject)=>(
+					subject._id === editSubjectId ?
+					<div className="edit_btn_group">
+						<Button size="small" className="ok_btn" type="primary" onClick={this.updateSubject}>确定</Button>
+						<Button size="small">取消</Button>
+					</div>:
 					<>
 						<Tooltip title="编辑">
 							<Button onClick={this.handleEdit(subject)}className="left_btn" type="primary" icon={<FormOutlined/>}></Button>
