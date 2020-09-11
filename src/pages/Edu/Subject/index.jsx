@@ -70,9 +70,9 @@ export default class Subject extends Component {
 					columns={columns} 
 					rowKey="_id" 
 					pagination={{
-						pageSize,
-						total,
-						onChange:(page)=>{this.getNo1SubjectPagination(page)}
+						pageSize,//页大小
+						total,//数据总数
+						onChange:(page)=>{this.getNo1SubjectPagination(page)}//页码改变的回调
 					}}
 				/>
 			</Card>
