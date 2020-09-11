@@ -15,13 +15,16 @@ export default class Subject extends Component {
 			items:[],//当前页的一级分类数据
 			total:0 //数据总数
 		},
-		pageSize:5 //页大小
+		pageSize:3 //页大小
 	}
 
 	//根据：页码、页大小请求对应数据
 	getNo1SubjectPagination = async(page,pageSize=this.state.pageSize)=>{
 		const {items,total} = await reqNo1SubjectPagination(page,pageSize)
-		this.setState({no1SubjectInfo:{items,total}})
+		this.setState({
+			no1SubjectInfo:{items,total},
+			pageSize
+		})
 	}
 
 	componentDidMount (){
@@ -69,10 +72,22 @@ export default class Subject extends Component {
 					dataSource={items} 
 					columns={columns} 
 					rowKey="_id" 
+					expandable={{
+
+						//如下配置适用于自身属性没来得及展示的这种情况，不适合发送网络请求
+						/* expandedRowRender: record => { //展开某项的回调
+							return <span>{record.gmtCreate}</span>
+						}, 
+						rowExpandable: () => true */
+					}}
 					pagination={{
 						pageSize,//页大小
-						total,//数据总数
-						onChange:(page)=>{this.getNo1SubjectPagination(page)}//页码改变的回调
+						total,//数据总数,
+						showSizeChanger:true,
+						showQuickJumper:true,
+						pageSizeOptions:['3','5','8','10','50'],
+						onChange:(page)=>{this.getNo1SubjectPagination(page)},//页码改变的回调
+						onShowSizeChange:(_,pageSize)=>{this.getNo1SubjectPagination(1,pageSize)}
 					}}
 				/>
 			</Card>
