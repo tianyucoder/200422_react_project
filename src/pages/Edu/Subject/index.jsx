@@ -219,7 +219,7 @@ export default class Subject extends Component {
 		return (
 			<Card 
 				title={
-					<Button type="primary" icon={<PlusCircleOutlined/>}>
+					<Button onClick={()=>this.props.history.push('/edu/subject/add')} type="primary" icon={<PlusCircleOutlined/>}>
 						新增分类
 					</Button>
 				}
