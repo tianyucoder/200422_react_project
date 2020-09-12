@@ -40,31 +40,93 @@
 			2.antd中分页器组件的使用
 			
 ## day02任务
-1. 配置Table组件的展开
-		(1).expandedRowRender适用于展开自身的额外项，不适用于发送网络请求
-		(2).onExpand和onExpandedRowsChange适用于发送网络请求
+1. 如何让表格的某行数据可展开
+			(1).第一种办法：expandedRowRender适用于展开自身没来得及显示的属性，不适用于发请求。
+						expandedRowRender:(item)=>{
+							console.log('展开自身没展示出来',item);
+							return item.gmtCreate
+						}
+			(2).第二种办法：借助数据自身的children属性
+2. 给展开按钮加回调：
+						第一种设置方式：使用onExpand
+								写法：
+										expandable={{
+											onExpand:(expanded,recod)=>{此处写业务逻辑}
+										}}
+								优势：好判断是否展开
+								劣势：无法重置展开的状态，需要很复杂的手动维护展开项id
+
+						第一种设置方式：使用expandedRowKeys
+								写法：
+										expandable={{
+											expandedRowKeys:(expandedIds)=>{此处写业务逻辑}
+										}}
+								优势：自动维护展开项id
+								劣势：需要手动判断展开还是收缩(写法不难)
+3. 编辑分类
+			(1).在Tbale组件的列配置中，render与dataIndex的配合,获取当前分类信息,存入状态
+			(2).更新后，不要刷新当前页面，而是自己遍历更新数据(体验好)，用到了一个递归查找：
+				//封装更新数据的方法
+				const handleData = arr =>{
+					return arr.map((subject)=>{
+						if(subject._id === editId){
+							subject.title = editTitle
+						}else{
+							//如果某一级分类有children，继续去children里找
+							if(subject.children) handleData(subject.children)
+						}
+						return subject
+					})
+				}
+4. 删除分类
+			(1).用到了Modal.confirm组件
+					confirm({
+							title:'xxxxx, //主标题
+							icon: <QuestionCircleOutlined />,//图标
+							content: '删除后无法恢复，请谨慎操作！',//副标题
+							okText:'确认',
+							cancelText:'取消',
+							onOk:async()=> {} //弹窗中确认按钮的回调
+							onCancel() {} //弹窗中取消按钮的回调
+						});
+			(2).执行删除
+							(1).删除后重新请求当前页的最新数据
+							(2).注意分页器中current属性的使用————用来指定当前页码
+							(3).每次点击页码按钮后，将当前页码维护进状态
+							(4).若当前不是第一页，且只有一条数据，删除后要请求前一页数据
 	
 ## day03任务
-	1.更新分类
-			(1).完成更新后，刷新本页数据
-			(2).完成更新后，手动维护状态
-	2.删除分类：
-			1.用到了antd的Modal组件中的confirm
-	3.新增分类：
-		一、编码：
-				1.定义好AddSubject组件:在src/pages/Edu/Subject/componnets/AddSubject/index.jsx 
-				2.在：src\config\asyncComps.js文件中，引入上一步的路由组件，并暴露,代码如下：
-						const AddSubjet = () => lazy(() => import("@/pages/Edu/Subject/components/AddSubject"));
-						export default {
-							....
-							AddSubjet
-						};
-		二、配置：
-					1.去系统中：权限管理 ==> 菜单管理 ==> 教育管理===>分类管理 点击后面的加号
-					2.弹窗中输入：
-							菜单名称：新增分类
-							访问路径：/subject/add
-							组件路径：AddSubject
-							按钮权限：subject.add
-					3.给按钮分配权限：
-								去系统中：权限管理 ==> 角色管理 ==> admin后的小齿轮，勾选新增管理
+1. 更新分类
+		(1).完成更新后，刷新本页数据
+		(2).完成更新后，手动维护状态
+2. 删除分类：
+		1.用到了antd的Modal组件中的confirm
+3. 添加新增分类路由：
+	一、编码：
+			1.定义好AddSubject组件:在src/pages/Edu/Subject/componnets/AddSubject/index.jsx 
+			2.在：src\config\asyncComps.js文件中，引入上一步的路由组件，并暴露,代码如下：
+					const AddSubjet = () => lazy(() => import("@/pages/Edu/Subject/components/AddSubject"));
+					export default {
+						....
+						AddSubjet
+					};
+	二、配置：
+				1.去系统中：权限管理 ==> 菜单管理 ==> 教育管理===>分类管理 点击后面的加号
+				2.弹窗中输入：
+						菜单名称：新增分类
+						访问路径：/subject/add
+						组件路径：AddSubject
+						按钮权限：subject.add
+				3.给按钮分配权限：
+							去系统中：权限管理 ==> 角色管理 ==> admin后的小齿轮，勾选新增管理
+4. 编写新增分类静态组件：
+			1.使用：Card、Form组件
+			2.Form组件：
+					(1).每个表单项都是一个Item
+					(2).每个Item都分为：label区、wrapper区，可分别用labelCol、wrapperCol去控制
+					(3).每个Item都可以加校验规则，用rules属性，前提：Item必须有name，否则规则失效
+					(4).Form组件中任何的输入域，都要用Form组件的initialValues去指定，不允许单独指定
+			3.Select组件：
+					(1).每个Option必须有value属性
+					(2).Select组件中dropdownRender用于指定下拉框中额外的内容。
+					(3).dropdownRender值为函数，会接到Select标签体内容。
