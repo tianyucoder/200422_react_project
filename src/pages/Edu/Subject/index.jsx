@@ -20,7 +20,6 @@ export default class Subject extends Component {
 			total:0 //数据总数
 		},
 		pageSize:5, //页大小
-		current:1,//当前页码
 		expandedRowKeys:[], //展开了的一级分类id数组
 		loading:false, //是否处于加载中
 		editSubjectId:'',//当前编辑的分类id
@@ -39,7 +38,6 @@ export default class Subject extends Component {
 		this.setState({
 			no1SubjectInfo:{items,total}, //更新一级分类数据
 			pageSize,//更新页大小
-			current:page,//更新页码
 			expandedRowKeys:[],//清空之前展开过的分类
 			loading:false //是否处于加载中
 		})
@@ -93,13 +91,36 @@ export default class Subject extends Component {
 		this.setState({editSubjectTitle:event.target.value})
 	}
 
+	//用于更新本地分类信息的函数(逐层查找)
+	demo = (arr)=>{
+		const {editSubjectId,editSubjectTitle} = this.state
+		return arr.map((sub)=>{
+			if(sub._id === editSubjectId){
+				sub.title = editSubjectTitle
+			}else{
+				if(sub.children) this.demo(sub.children)
+			}
+			return sub
+		})
+	}
+
 	//编辑状态下，确认按钮的回调
 	updateSubject = async()=>{
-		const {editSubjectId,editSubjectTitle,current} = this.state
+		//从状态中获取当前编辑分类信息、当前页码
+		const {editSubjectId,editSubjectTitle,no1SubjectInfo} = this.state
+		//发送请求执行更新
 		await reqUpdateSubject(editSubjectId,editSubjectTitle)
+		//更新成功的提示
 		message.success('分类更新成功！')
-		this.getNo1SubjectPagination(current)
-		this.setState({editSubjectId:'',editSubjectTitle:''})
+		
+		//遍历状态中的no1SubjectInfo.items改掉对应分类的名字
+		const arr = this.demo(no1SubjectInfo.items)
+		
+		this.setState({
+			editSubjectId:'',//清空状态中存储的当前编辑分类的：id
+			editSubjectTitle:'',//清空状态中存储的当前编辑分类的：title
+			no1SubjectInfo:{...no1SubjectInfo,items:arr}
+		})
 	}
 
 	componentDidMount (){
@@ -115,7 +136,6 @@ export default class Subject extends Component {
 			expandedRowKeys,
 			loading,
 			editSubjectId,
-			current
 		} = this.state
 		//columns是表格的列配置（重要）
 		const columns = [
@@ -188,7 +208,6 @@ export default class Subject extends Component {
 					pagination={{
 						pageSize,//页大小
 						total,//数据总数,
-						current,
 						showSizeChanger:true,//展示快速跳转框
 						showQuickJumper:true,
 						pageSizeOptions:['1','2','3','4','5','8','10','50'],//页大小备选项
