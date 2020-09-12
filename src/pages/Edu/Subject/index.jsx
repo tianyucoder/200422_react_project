@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 //引入antd的Card、Button组件
-import {Card,Button,Table,Tooltip,Input} from 'antd'
+import {Card,Button,Table,Tooltip,Input,message} from 'antd'
 //引入图标
 import {PlusCircleOutlined,FormOutlined,DeleteOutlined} from '@ant-design/icons'
 //引入reqNo1SubjectPagination发送请求
@@ -20,6 +20,7 @@ export default class Subject extends Component {
 			total:0 //数据总数
 		},
 		pageSize:5, //页大小
+		current:1,//当前页码
 		expandedRowKeys:[], //展开了的一级分类id数组
 		loading:false, //是否处于加载中
 		editSubjectId:'',//当前编辑的分类id
@@ -38,6 +39,7 @@ export default class Subject extends Component {
 		this.setState({
 			no1SubjectInfo:{items,total}, //更新一级分类数据
 			pageSize,//更新页大小
+			current:page,//更新页码
 			expandedRowKeys:[],//清空之前展开过的分类
 			loading:false //是否处于加载中
 		})
@@ -93,9 +95,10 @@ export default class Subject extends Component {
 
 	//编辑状态下，确认按钮的回调
 	updateSubject = async()=>{
-		const {editSubjectId,editSubjectTitle} = this.state
-		const result = await reqUpdateSubject(editSubjectId,editSubjectTitle)
-		this.getNo1SubjectPagination(1)
+		const {editSubjectId,editSubjectTitle,current} = this.state
+		await reqUpdateSubject(editSubjectId,editSubjectTitle)
+		message.success('分类更新成功！')
+		this.getNo1SubjectPagination(current)
 		this.setState({editSubjectId:'',editSubjectTitle:''})
 	}
 
@@ -111,7 +114,8 @@ export default class Subject extends Component {
 			pageSize,
 			expandedRowKeys,
 			loading,
-			editSubjectId
+			editSubjectId,
+			current
 		} = this.state
 		//columns是表格的列配置（重要）
 		const columns = [
@@ -184,6 +188,7 @@ export default class Subject extends Component {
 					pagination={{
 						pageSize,//页大小
 						total,//数据总数,
+						current,
 						showSizeChanger:true,//展示快速跳转框
 						showQuickJumper:true,
 						pageSizeOptions:['1','2','3','4','5','8','10','50'],//页大小备选项
