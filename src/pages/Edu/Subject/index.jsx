@@ -1,16 +1,24 @@
 import React, { Component } from 'react'
 //引入antd的Card、Button组件
-import {Card,Button,Table,Tooltip,Input,message} from 'antd'
+import {Card,Button,Table,Tooltip,Input,message,Modal} from 'antd'
 //引入图标
-import {PlusCircleOutlined,FormOutlined,DeleteOutlined} from '@ant-design/icons'
+import {
+	PlusCircleOutlined,
+	FormOutlined,
+	DeleteOutlined,
+	ExclamationCircleOutlined
+} from '@ant-design/icons'
 //引入reqNo1SubjectPagination发送请求
 import {
 	reqNo1SubjectPagination,
 	reqAllNo2SubjectByNo1Id,
-	reqUpdateSubject
+	reqUpdateSubject,
+	reqDeleteSubject
 } from '@/api/edu/subject'
 //引入样式
 import './index.less'
+//引入便捷弹窗组件
+const {confirm} = Modal
 
 export default class Subject extends Component {
 
@@ -20,6 +28,7 @@ export default class Subject extends Component {
 			total:0 //数据总数
 		},
 		pageSize:5, //页大小
+		current:1,//当前页码
 		expandedRowKeys:[], //展开了的一级分类id数组
 		loading:false, //是否处于加载中
 		editSubjectId:'',//当前编辑的分类id
@@ -38,6 +47,7 @@ export default class Subject extends Component {
 		this.setState({
 			no1SubjectInfo:{items,total}, //更新一级分类数据
 			pageSize,//更新页大小
+			current:page,//页码
 			expandedRowKeys:[],//清空之前展开过的分类
 			loading:false //是否处于加载中
 		})
@@ -92,13 +102,13 @@ export default class Subject extends Component {
 	}
 
 	//用于更新本地分类信息的函数(逐层查找)
-	demo = (arr)=>{
+	processSubject = (arr)=>{
 		const {editSubjectId,editSubjectTitle} = this.state
 		return arr.map((sub)=>{
 			if(sub._id === editSubjectId){
 				sub.title = editSubjectTitle
 			}else{
-				if(sub.children) this.demo(sub.children)
+				if(sub.children) this.processSubject(sub.children)
 			}
 			return sub
 		})
@@ -108,19 +118,44 @@ export default class Subject extends Component {
 	updateSubject = async()=>{
 		//从状态中获取当前编辑分类信息、当前页码
 		const {editSubjectId,editSubjectTitle,no1SubjectInfo} = this.state
+		if(!editSubjectTitle.trim()) {
+			message.warning('分类名不能为空')
+			return
+		}
 		//发送请求执行更新
 		await reqUpdateSubject(editSubjectId,editSubjectTitle)
 		//更新成功的提示
 		message.success('分类更新成功！')
-		
 		//遍历状态中的no1SubjectInfo.items改掉对应分类的名字
-		const arr = this.demo(no1SubjectInfo.items)
-		
+		const items = this.processSubject(no1SubjectInfo.items)
+		//维护状态
 		this.setState({
 			editSubjectId:'',//清空状态中存储的当前编辑分类的：id
 			editSubjectTitle:'',//清空状态中存储的当前编辑分类的：title
-			no1SubjectInfo:{...no1SubjectInfo,items:arr}
+			no1SubjectInfo:{...no1SubjectInfo,items}
 		})
+	}
+
+	//删除按钮的回调
+	handleDelete = (id)=>{
+		let {current,no1SubjectInfo} = this.state
+		//1.弹窗提示是否确定要删除
+		confirm({
+			title: '确定删除吗？', //弹窗主标题
+			icon: <ExclamationCircleOutlined />,//图标
+			content: '删除后无法回复，谨慎操作',//弹窗副标题
+			okText:'确定',
+			cancelText:'取消',
+			onOk:async ()=> {
+				await reqDeleteSubject(id)
+				message.success('删除分类成功！')
+				if(current !== 1 && no1SubjectInfo.items.length === 1){
+					current -= 1
+					this.setState({current})
+				}
+				this.getNo1SubjectPagination(current)
+			},
+		});
 	}
 
 	componentDidMount (){
@@ -136,6 +171,7 @@ export default class Subject extends Component {
 			expandedRowKeys,
 			loading,
 			editSubjectId,
+			current
 		} = this.state
 		//columns是表格的列配置（重要）
 		const columns = [
@@ -163,14 +199,14 @@ export default class Subject extends Component {
 					subject._id === editSubjectId ?
 					<div className="edit_btn_group">
 						<Button size="small" className="ok_btn" type="primary" onClick={this.updateSubject}>确定</Button>
-						<Button size="small">取消</Button>
+						<Button size="small" onClick={()=>this.setState({editSubjectId:'',editSubjectTitle:''})}>取消</Button>
 					</div>:
 					<>
 						<Tooltip title="编辑">
 							<Button onClick={this.handleEdit(subject)}className="left_btn" type="primary" icon={<FormOutlined/>}></Button>
 						</Tooltip>
 						<Tooltip title="删除">
-							<Button type="danger" icon={<DeleteOutlined/>}></Button>
+							<Button onClick={()=>this.handleDelete(subject._id)} type="danger" icon={<DeleteOutlined/>}></Button>
 						</Tooltip>	
 					</>
 				)
@@ -208,6 +244,7 @@ export default class Subject extends Component {
 					pagination={{
 						pageSize,//页大小
 						total,//数据总数,
+						current,//当前页码
 						showSizeChanger:true,//展示快速跳转框
 						showQuickJumper:true,
 						pageSizeOptions:['1','2','3','4','5','8','10','50'],//页大小备选项

@@ -46,3 +46,15 @@ export function reqUpdateSubject(id,title) {
 		data:{id,title}
   });
 }
+
+/**
+ * 
+ * @param {要删除分类的id} id 
+ * @description {根据id删除分类}
+ */
+export function reqDeleteSubject(id) {
+  return request({
+    url: `${BASE_URL}/remove/${id}`,
+		method: "DELETE",
+  });
+}
