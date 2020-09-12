@@ -43,3 +43,28 @@
 1. 配置Table组件的展开
 		(1).expandedRowRender适用于展开自身的额外项，不适用于发送网络请求
 		(2).onExpand和onExpandedRowsChange适用于发送网络请求
+	
+## day03任务
+	1.更新分类
+			(1).完成更新后，刷新本页数据
+			(2).完成更新后，手动维护状态
+	2.删除分类：
+			1.用到了antd的Modal组件中的confirm
+	3.新增分类：
+		一、编码：
+				1.定义好AddSubject组件:在src/pages/Edu/Subject/componnets/AddSubject/index.jsx 
+				2.在：src\config\asyncComps.js文件中，引入上一步的路由组件，并暴露,代码如下：
+						const AddSubjet = () => lazy(() => import("@/pages/Edu/Subject/components/AddSubject"));
+						export default {
+							....
+							AddSubjet
+						};
+		二、配置：
+					1.去系统中：权限管理 ==> 菜单管理 ==> 教育管理===>分类管理 点击后面的加号
+					2.弹窗中输入：
+							菜单名称：新增分类
+							访问路径：/subject/add
+							组件路径：AddSubject
+							按钮权限：subject.add
+					3.给按钮分配权限：
+								去系统中：权限管理 ==> 角色管理 ==> admin后的小齿轮，勾选新增管理
