@@ -42,4 +42,4 @@
 ## day02任务
 1. 配置Table组件的展开
 		(1).expandedRowRender适用于展开自身的额外项，不适用于发送网络请求
-		(2).
+		(2).onExpand和onExpandedRowsChange适用于发送网络请求
