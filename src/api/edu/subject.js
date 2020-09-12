@@ -58,3 +58,15 @@ export function reqDeleteSubject(id) {
 		method: "DELETE",
   });
 }
+
+
+export function reqAddSubject({title,parentId}) {
+  return request({
+    url: `${BASE_URL}/save`,
+		method: "POST",
+		data:{
+			title,
+			parentId
+		}
+  });
+}

@@ -63,7 +63,23 @@
 										}}
 								优势：自动维护展开项id
 								劣势：需要手动判断展开还是收缩(写法不难)
-3. 编辑分类
+3. 页码切换后，清空展开项:用到Table的expandedRowKeys属性
+4. 分页器的使用：
+		pagination={{
+			pageSize,//页大小
+			total,//数据总数,
+			current,//当前页码
+			showSizeChanger:true,//展示快速跳转框
+			showQuickJumper:true,
+			pageSizeOptions:['1','2','3','4','5','8','10','50'],//页大小备选项
+			onChange:(page)=>{this.getNo1SubjectPagination(page)},//页码改变的回调
+			onShowSizeChange:(_,pageSize)=>{//页大小改变的回调
+				this.getNo1SubjectPagination(1,pageSize)
+			} 
+		}}
+
+## day03任务
+1. 编辑分类
 			(1).在Tbale组件的列配置中，render与dataIndex的配合,获取当前分类信息,存入状态
 			(2).更新后，不要刷新当前页面，而是自己遍历更新数据(体验好)，用到了一个递归查找：
 				//封装更新数据的方法
@@ -78,7 +94,7 @@
 						return subject
 					})
 				}
-4. 删除分类
+2. 删除分类
 			(1).用到了Modal.confirm组件
 					confirm({
 							title:'xxxxx, //主标题
@@ -94,13 +110,6 @@
 							(2).注意分页器中current属性的使用————用来指定当前页码
 							(3).每次点击页码按钮后，将当前页码维护进状态
 							(4).若当前不是第一页，且只有一条数据，删除后要请求前一页数据
-	
-## day03任务
-1. 更新分类
-		(1).完成更新后，刷新本页数据
-		(2).完成更新后，手动维护状态
-2. 删除分类：
-		1.用到了antd的Modal组件中的confirm
 3. 添加新增分类路由：
 	一、编码：
 			1.定义好AddSubject组件:在src/pages/Edu/Subject/componnets/AddSubject/index.jsx 
