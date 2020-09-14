@@ -1,4 +1,4 @@
-//所有分类相关的请求都在此发出
+//所有章节相关的请求都在此发出
 import request from "@/utils/request";
 
 const BASE_URL = "/admin/edu/chapter";
