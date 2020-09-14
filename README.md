@@ -114,10 +114,10 @@
 	一、编码：
 			1.定义好AddSubject组件:在src/pages/Edu/Subject/componnets/AddSubject/index.jsx 
 			2.在：src\config\asyncComps.js文件中，引入上一步的路由组件，并暴露,代码如下：
-					const AddSubjet = () => lazy(() => import("@/pages/Edu/Subject/components/AddSubject"));
+					const AddSubject = () => lazy(() => import("@/pages/Edu/Subject/components/AddSubject"));
 					export default {
 						....
-						AddSubjet
+						AddSubject
 					};
 	二、配置：
 				1.去系统中：权限管理 ==> 菜单管理 ==> 教育管理===>分类管理 点击后面的加号
@@ -139,3 +139,26 @@
 					(1).每个Option必须有value属性
 					(2).Select组件中dropdownRender用于指定下拉框中额外的内容。
 					(3).dropdownRender值为函数，会接到Select标签体内容。
+
+
+## day03任务
+1.
+2.
+3.
+4. 新增课时：
+			(1).创建文件：在src/pages/Edu/Chapter/components/AddLesson创建index.jsx
+			(2).在：src\config\asyncComps.js文件中，引入上一步的路由组件，并暴露,代码如下：
+					const AddLesson = () => lazy(() => import("@/pages/Edu/Chapter/components/AddLesson"));
+					export default {
+						....
+						AddLesson
+					};
+			(3).去系统中：权限管理 ==> 菜单管理 ==> 教育管理 ==>章节管理 后面的加号
+			(4).输入：
+							菜单名称：新增课时
+							访问路径：/chapter/addlesson
+							组件路径：AddLesson
+							按钮权限：chapter.addlesson
+			(5).给菜单分配权限：
+							去系统中：权限管理 ==> 角色管理 ==> admin后的小齿轮，新增课时
+5.在List组件中使用withRouter

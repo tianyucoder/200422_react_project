@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Card,Table,Button} from 'antd'
+import {Card,Table,Button,Tooltip} from 'antd'
 import {
 	FullscreenOutlined,
 	FormOutlined,
@@ -8,9 +8,10 @@ import {
 } from '@ant-design/icons';
 import {reqAllLessonListByCourseId} from '@/api/edu/lesson'
 import Pubsub from 'pubsub-js'
+import {withRouter} from 'react-router-dom'
 import './index.less'
 
-export default class List extends Component {
+class List extends Component {
 
 	state = {
 		chapterList:[] //存储某课程的章节列表
@@ -67,10 +68,16 @@ export default class List extends Component {
 					<>
 						{
 							'free' in data ? null:
-							<Button type="primary" className="mar_right_btn" icon={<PlusOutlined />}/>
+							<Tooltip title="新增课时">
+								<Button onClick={()=>this.props.history.push('/edu/chapter/addlesson')} type="primary" className="mar_right_btn" icon={<PlusOutlined />}/>
+							</Tooltip>
 						}
-						<Button type="primary" className="mar_right_btn" icon={<FormOutlined/>}/>
-						<Button type="danger" icon={<DeleteOutlined/>}/>
+						<Tooltip title="编辑">
+							<Button type="primary" className="mar_right_btn" icon={<FormOutlined/>}/>
+						</Tooltip>
+						<Tooltip title="删除">
+							<Button type="danger" icon={<DeleteOutlined/>}/>
+						</Tooltip>
 					</>
 				)
 			},
@@ -98,3 +105,4 @@ export default class List extends Component {
 		)
 	}
 }
+export default withRouter(List)
