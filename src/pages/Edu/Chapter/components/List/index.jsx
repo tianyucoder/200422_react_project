@@ -69,7 +69,12 @@ class List extends Component {
 						{
 							'free' in data ? null:
 							<Tooltip title="新增课时">
-								<Button onClick={()=>this.props.history.push('/edu/chapter/addlesson')} type="primary" className="mar_right_btn" icon={<PlusOutlined />}/>
+								<Button 
+									onClick={()=>this.props.history.push('/edu/chapter/addlesson',{id:data._id})} 
+									type="primary" 
+									className="mar_right_btn" 
+									icon={<PlusOutlined />}
+								/>
 							</Tooltip>
 						}
 						<Tooltip title="编辑">
