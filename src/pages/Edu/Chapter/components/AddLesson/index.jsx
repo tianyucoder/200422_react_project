@@ -5,6 +5,7 @@ import {ArrowLeftOutlined} from '@ant-design/icons'
 const {Item} = Form
 export default class AddLesson extends Component {
 
+	//表单提交的回调
 	handleFinish = (values)=>{
 		values.chapter_id = this.props.location.state.id
 		console.log(values);

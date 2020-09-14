@@ -141,7 +141,7 @@
 					(3).dropdownRender值为函数，会接到Select标签体内容。
 
 
-## day03任务
+## day04任务
 1.
 2.
 3.
@@ -161,4 +161,7 @@
 							按钮权限：chapter.addlesson
 			(5).给菜单分配权限：
 							去系统中：权限管理 ==> 角色管理 ==> admin后的小齿轮，新增课时
-5.在List组件中使用withRouter
+5. 在List组件中使用withRouter
+6. 编写新增课时静态组件
+			注意：Switch组件被Item包裹时，默认会取Switch组件的value值，但Switch内部维护的不是value
+						是checked，所以需要在Item中追加valuePropName="checked"，声明接收的是checked
