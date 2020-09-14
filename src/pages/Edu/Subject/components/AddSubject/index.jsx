@@ -40,7 +40,6 @@ export default class AddSubject extends Component {
 
 	//表单提交且输入项合法后的回调
 	handleFinish = async(values)=>{
-		console.log('demo执行了',values);
 		await reqAddSubject(values)
 		message.success('新增分类成功！')
 		this.props.history.goBack()
