@@ -165,3 +165,7 @@
 6. 编写新增课时静态组件
 			注意：Switch组件被Item包裹时，默认会取Switch组件的value值，但Switch内部维护的不是value
 						是checked，所以需要在Item中追加valuePropName="checked"，声明接收的是checked
+7. 文件上传
+			(1).在xxxxx创建Upload/index.jsx
+			(2).对上传的文件进行类型的限制：使用accept="video/mp4"
+			(3).指定customReques属性，值为函数，函数体中写真正上传的逻辑

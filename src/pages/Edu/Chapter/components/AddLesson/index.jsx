@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Card,Form,Button,Input,Switch} from 'antd'
 import {ArrowLeftOutlined} from '@ant-design/icons'
+import Upload from '@/components/Upload'
 
 const {Item} = Form
 export default class AddLesson extends Component {
@@ -49,7 +50,8 @@ export default class AddLesson extends Component {
 						// name="video" 
 						label="课时视频" 
 					>
-						在此放置antd的上传组件
+						{/* 上传组件 */}
+						<Upload/>
 					</Item>
 					<Item>
 						<Button htmlType="submit" type="primary">添加</Button>
