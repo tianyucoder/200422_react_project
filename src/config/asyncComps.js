@@ -14,6 +14,7 @@ const Settings = () => lazy(() => import("@/pages/User/Settings"));
 const Center = () => lazy(() => import("@/pages/User/Center"));
 const Subject = () => lazy(() => import("@/pages/Edu/Subject"));
 const AddSubject = () => lazy(() => import("@/pages/Edu/Subject/components/AddSubject"));
+const Chapter = () => lazy(() => import("@/pages/Edu/Chapter"));
 
 export default {
   Admin,
@@ -28,5 +29,6 @@ export default {
   Settings,
 	Center,
 	Subject,
-	AddSubject
+	AddSubject,
+	Chapter
 };
