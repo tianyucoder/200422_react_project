@@ -196,9 +196,9 @@
 					4).在customRequest回调中编写如下代码：
 							const key = file.uid //交给七牛云时文件的名字
 							const {uploadToken:token} = await reqQiniuToken() //获取一个可用的token
-							const putExtra = {}
-							const config = {}
 							
-							const observable = qiniu.upload(file, key, token, putExtra, config)
+							const observable = qiniu.upload(file, key, token)
 							observable.subscribe() // 上传开始
-
+2. 添加课时-获取表单数据
+		注意在自己的上传组件中使用this.props.onChange()去传递上传完毕的视频地址
+3.

@@ -59,9 +59,7 @@ class List extends Component {
 
 	//全屏、退出全屏按钮的回调
 	switchFullScreen = ()=>{
-		const {isFull} = this.state
-		screenfull.toggle()
-		this.setState({isFull:!isFull})
+		screenfull.toggle(this.refs.lesson_list)
 	}
 
 	componentDidMount(){
@@ -71,6 +69,11 @@ class List extends Component {
 			//获取结果后，存储到自身状态，供Table组件读取，展示
 			const items = data.items.map(chapter => ({...chapter,children:[]}))
 			this.setState({chapterList:items})
+		})
+		//检测浏览器全屏的变化
+		screenfull.on('change',()=>{
+			const {isFull} = this.state
+			this.setState({isFull:!isFull})
 		})
 	}
 
@@ -128,30 +131,32 @@ class List extends Component {
 		return (
 			<>
 				{/* 章节列表 */}
-				<Card
-					title="章节列表"
-					extra={
-						<>
-							<Button type="primary" className="mar_right_btn">新增章节</Button>
-							<Button type="danger">批量删除</Button>
-							<Button 
-								size="large"
-								 onClick={this.switchFullScreen} 
-								 className="link_btn" 
-								 icon={isFull ? <FullscreenExitOutlined /> :<FullscreenOutlined/>}
-							/>
-						</>
-					}
-				>
-					<Table 
-						dataSource={chapterList} 
-						columns={columns} 
-						rowKey="_id"
-						expandable={{
-							onExpand:this.handleExpand
-						}}
-					/>
-				</Card>
+				<div ref="lesson_list" style={{backgroundColor:'white'}}>
+					<Card
+						title="章节列表"
+						extra={
+							<>
+								<Button type="primary" className="mar_right_btn">新增章节</Button>
+								<Button type="danger">批量删除</Button>
+								<Button 
+									size="large"
+									onClick={this.switchFullScreen} 
+									className="link_btn" 
+									icon={isFull ? <FullscreenExitOutlined /> :<FullscreenOutlined/>}
+								/>
+							</>
+						}
+					>
+						<Table 
+							dataSource={chapterList} 
+							columns={columns} 
+							rowKey="_id"
+							expandable={{
+								onExpand:this.handleExpand
+							}}
+						/>
+					</Card>
+				</div>
 				{/* 预览课时弹窗 */}
 				<Modal
 					title={lessonTitle} //弹窗的标题

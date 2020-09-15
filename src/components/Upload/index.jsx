@@ -38,13 +38,13 @@ export default class MyUpload extends Component {
 			complete :(res)=>{
 				//如果七牛最终上传成功，则调用complete
 				onSuccess()
-				// console.log('视频地址为：','http://qgoex93ob.hn-bkt.clouddn.com/'+res.key);
+				console.log('视频地址为：','http://qgoex93ob.hn-bkt.clouddn.com/'+res.key);
 				this.props.onChange('http://qgoex93ob.hn-bkt.clouddn.com/'+res.key)
 				message.success('上传成功！')
 			}
 		}
 		//将视频交给七牛云
-		const key = file.uid //交给七牛云时文件的名字
+		const key = 'tianyu_0422_test'+file.uid //交给七牛云时文件的名字
 		const {uploadToken:token} = await reqQiniuToken()//上传的凭证
 		const observable = qiniu.upload(file, key, token)
 		observable.subscribe(observer) // 上传开始,并开始监测上传的进度、结果
