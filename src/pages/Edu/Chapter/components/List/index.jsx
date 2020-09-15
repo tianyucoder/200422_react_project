@@ -59,7 +59,6 @@ class List extends Component {
 
 	//全屏、退出全屏按钮的回调
 	switchFullScreen = ()=>{
-		console.log('你要全屏');
 		const {isFull} = this.state
 		screenfull.toggle()
 		this.setState({isFull:!isFull})
