@@ -142,10 +142,9 @@
 
 
 ## day04任务
-1.
-2.
-3.
-4. 新增课时：
+1. 章节管理静态组件，注意拆分Search组件、List组件
+2. Form表单的重置，借助：表单实例对象.resetFields()
+3. 新增课时：
 			(1).创建文件：在src/pages/Edu/Chapter/components/AddLesson创建index.jsx
 			(2).在：src\config\asyncComps.js文件中，引入上一步的路由组件，并暴露,代码如下：
 					const AddLesson = () => lazy(() => import("@/pages/Edu/Chapter/components/AddLesson"));
@@ -161,11 +160,11 @@
 							按钮权限：chapter.addlesson
 			(5).给菜单分配权限：
 							去系统中：权限管理 ==> 角色管理 ==> admin后的小齿轮，新增课时
-5. 在List组件中使用withRouter
-6. 编写新增课时静态组件
+4. 在List组件中使用withRouter
+5. 编写新增课时静态组件
 			注意：Switch组件被Item包裹时，默认会取Switch组件的value值，但Switch内部维护的不是value
 						是checked，所以需要在Item中追加valuePropName="checked"，声明接收的是checked
-7. 文件上传
+6. 文件上传
 			(1).在xxxxx创建Upload/index.jsx
 			(2).对上传的文件进行类型的限制：使用accept="video/mp4"
 			(3).指定customReques属性，值为函数，函数体中写真正上传的逻辑
