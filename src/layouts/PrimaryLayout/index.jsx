@@ -12,7 +12,6 @@ import { Link, withRouter } from "react-router-dom";
 import SiderMenu from "../SiderMenu";
 import { AuthorizedRouter } from "@/components/Authorized";
 import { logout } from "@/redux/actions/login";
-import { changeLanguage } from "@/redux/actions/language";
 import { resetUser } from "../../components/Authorized/redux";
 import logo from "@/assets/images/logo.png";
 import { findPathIndex } from "@/utils/tools";
@@ -28,7 +27,6 @@ const { Header, Sider, Content } = Layout;
   {
     logout,
 		resetUser,
-		changeLanguage
   }
 )
 @withRouter
@@ -52,11 +50,6 @@ class PrimaryLayout extends Component {
       this.props.history.replace("/login");
     });
 	};
-	
-	changeLanguage = ({key})=>{
-		console.log('切换到:',key,'语言包');
-		this.props.changeLanguage(key)
-	}
 
   menu = (
     <Menu style={{ width: 150 }} onClick={this.logout}>
