@@ -22,19 +22,36 @@ export default class MyUpload extends Component {
 
 	//用于编写自定义上传的逻辑
 	customRequest = async({file,onError,onProgress,onSuccess})=>{
-		console.log(file);
-		//此处要写一些代码，将视频交给七牛云
-
-		const key = 'zhangtianyu'+file.uid //交给七牛云时文件的名字
+		//创建一个上传的检测者
+		const observer = {
+			next({total}){
+				//七牛在上传时，是“一点一点”上传，每次传完“一点”，都会调用next方法，传入一个对象
+				//对象中包含着：文件总大小、已完成大小、完成百分比
+				onProgress({percent:total.percent})
+			},
+			error(err){
+				//如果七牛上传视频中遇到一些问题，导致失败了，就会调error，且传入错误对象
+				onError()
+				console.log('服务器记载了本次错误',err.message);
+				message.error('上传失败，请联系管理员')
+			},
+			complete :(res)=>{
+				//如果七牛最终上传成功，则调用complete
+				onSuccess()
+				// console.log('视频地址为：','http://qgoex93ob.hn-bkt.clouddn.com/'+res.key);
+				this.props.onChange('http://qgoex93ob.hn-bkt.clouddn.com/'+res.key)
+				message.success('上传成功！')
+			}
+		}
+		//将视频交给七牛云
+		const key = 'xiaopeiqi_'+file.uid //交给七牛云时文件的名字
 		const {uploadToken:token} = await reqQiniuToken()
-		const putExtra = {}
-		const config = {}
-
-		const observable = qiniu.upload(file, key, token, putExtra, config)
-		observable.subscribe() // 上传开始
+		const observable = qiniu.upload(file, key, token)
+		observable.subscribe(observer) // 上传开始,并开始监测上传的进度、结果
 	}
 
 	render() {
+		console.log(this.props);
 		return (
 			<Upload 
 				//action="https://www.baidu.com" //视频上传的地址---简单上传用此属性指定

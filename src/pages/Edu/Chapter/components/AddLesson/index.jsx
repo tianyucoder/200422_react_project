@@ -36,7 +36,7 @@ export default class AddLesson extends Component {
 							{required:true,message:'必须输入课时名'}
 						]}
 					>
-						<Input placeholder="请输入课时名"/>
+						<Input placeholder="请输入课时名" />
 					</Item>
 					<Item
 						name="isfree" 
@@ -47,7 +47,7 @@ export default class AddLesson extends Component {
 						<Switch checkedChildren="是" unCheckedChildren="否"/>
 					</Item>
 					<Item
-						// name="video" 
+						name="video" 
 						label="课时视频" 
 					>
 						{/* 上传组件 */}
