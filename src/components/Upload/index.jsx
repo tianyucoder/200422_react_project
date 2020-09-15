@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Upload,message,Button} from 'antd'
 import { UploadOutlined } from '@ant-design/icons';
 
-const MAX_VIDEO_SIZE = 1024 * 1024 * 8 //8MB
+const MAX_VIDEO_SIZE = 1024 * 1024 * 8 //视频大小限制在8MB
 export default class MyUpload extends Component {
 
 	//视频上传之前调用，用于对上传的文件进行一些详细的限制
@@ -19,8 +19,11 @@ export default class MyUpload extends Component {
 	}
 
 	//用于编写自定义上传的逻辑
-	customReques = ()=>{
+	customRequest = ({file,onError,onProgress,onSuccess})=>{
+		console.log('customReques');
 		//此处要写一些代码，将视频交给七牛云
+		console.log('好嘞，交给七牛了');
+		
 	}
 
 	render() {
@@ -31,7 +34,7 @@ export default class MyUpload extends Component {
 
 				accept="video/mp4" //对上传文件进行类型的限制
 				beforeUpload={this.beforeUpload}//视频上传之前调用
-				customReques={this.customReques}//用于真正执行上传
+				customRequest={this.customRequest}//用于真正执行上传
 			>
 				<Button icon={<UploadOutlined />}>点击上传</Button>
 			</Upload>
