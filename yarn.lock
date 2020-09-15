@@ -9309,10 +9309,10 @@ q@^1.1.2:
   resolved "https://registry.npm.taobao.org/q/download/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
-qiniu-js@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.npm.taobao.org/qiniu-js/download/qiniu-js-3.0.3.tgz#632f8b378dba531b4fad72e1ea65a51e64159399"
-  integrity sha1-Yy+LN426UxtPrXLh6mWlHmQVk5k=
+qiniu-js@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.npm.taobao.org/qiniu-js/download/qiniu-js-3.1.1.tgz#a8dd7e044f4e0e0a03dc8288c34f0194794f34b0"
+  integrity sha1-qN1+BE9ODgoD3IKIw08BlHlPNLA=
   dependencies:
     "@babel/runtime-corejs2" "^7.10.2"
     exif-js "^2.3.0"

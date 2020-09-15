@@ -170,6 +170,35 @@
 			(3).指定customReques属性，值为函数，函数体中写真正上传的逻辑
 
 ## day04任务
-1. 准备七牛云空间
-			1).登录七牛云账号 ===> 管理控制台
-			2).空间管理===>新建空间(注意空间类型要选择：公开空间)
+1. 七牛云上传文件配置+编码流程（通用）
+		(1).配置：
+					1).登录七牛云账号 ===> 管理控制台
+					2).空间管理===>新建空间(注意空间类型要选择：公开空间)
+		(2).编码：
+					参考：文档===>开发者中心，SDK&工具 ====> 官方SDK
+				 	1).安装:yarn add qiniu-js ,引入：import * as qiniu from 'qiniu-js'
+					2).修改服务器配置，文件位置：server\config\index.js,内容如下：
+							// 七牛云配置
+							const ACCESS_KEY = "b4_N1cKskFNSu9qMX98UfzXGvRc5GwYhuBlD7W4K";
+							const SECRET_KEY = "-p-rnYrdiJFeZ-XXe1OwnBIwjOmv26YnMvgtCUdd";
+							const BUCKET = "atguigu-0422";
+							const EXPIRES = 7200;
+					3).创建获取七牛token的接口，在api/upload/index.js中编码：
+							//用于请求七牛云授权的token
+							import request from "@/utils/request";
+							const BASE_URL = "/uploadtoken";
+							export function reqQiniuToken() {
+								return request({
+									url: BASE_URL,
+									method: "GET",
+								});
+							}
+					4).在customRequest回调中编写如下代码：
+							const key = file.uid //交给七牛云时文件的名字
+							const {uploadToken:token} = await reqQiniuToken() //获取一个可用的token
+							const putExtra = {}
+							const config = {}
+							
+							const observable = qiniu.upload(file, key, token, putExtra, config)
+							observable.subscribe() // 上传开始
+
