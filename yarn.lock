@@ -10502,7 +10502,7 @@ schema-utils@^2.5.0, schema-utils@^2.6.0, schema-utils@^2.6.1, schema-utils@^2.6
 
 screenfull@^5.0.2:
   version "5.0.2"
-  resolved "https://registry.npm.taobao.org/screenfull/download/screenfull-5.0.2.tgz#b9acdcf1ec676a948674df5cd0ff66b902b0bed7"
+  resolved "https://registry.npm.taobao.org/screenfull/download/screenfull-5.0.2.tgz?cache=0&sync_timestamp=1581588988262&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fscreenfull%2Fdownload%2Fscreenfull-5.0.2.tgz#b9acdcf1ec676a948674df5cd0ff66b902b0bed7"
   integrity sha1-uazc8exnapSGdN9c0P9muQKwvtc=
 
 scroll-into-view-if-needed@^2.2.20:

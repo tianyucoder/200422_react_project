@@ -10,7 +10,7 @@ export default class AddLesson extends Component {
 	//表单提交的回调
 	handleFinish = async(values)=>{
 		values.chapterId = this.props.location.state.id
-		const result = await reqAddLesson(values)
+		await reqAddLesson(values)
 		this.props.history.goBack()
 	}
 

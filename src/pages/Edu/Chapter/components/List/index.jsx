@@ -5,11 +5,16 @@ import {
 	FormOutlined,
 	DeleteOutlined,
 	PlusOutlined,
-	EyeOutlined
+	EyeOutlined,
+	FullscreenExitOutlined
 } from '@ant-design/icons';
 import {reqAllLessonListByCourseId} from '@/api/edu/lesson'
 import Pubsub from 'pubsub-js'
 import {withRouter} from 'react-router-dom'
+import { Player } from 'video-react';
+import screenfull from 'screenfull'
+
+import 'video-react/dist/video-react.css'
 import './index.less'
 
 class List extends Component {
@@ -17,7 +22,9 @@ class List extends Component {
 	state = {
 		chapterList:[], //存储某课程的章节列表
 		visible:false, //控制弹窗是否展示
-		lessonTitle:'' //当前正在预览课时的名称
+		lessonTitle:'', //当前正在预览课时的名称
+		url:'',//视频预览地址
+		isFull:false //标识是否全屏
 	}
 
 	//表格项展开的回调
@@ -41,11 +48,21 @@ class List extends Component {
 		this.setState({visible:false})
 	}
 
+	//展示视频预览框
 	showModal = (data)=>{
 		return ()=>this.setState({
 			visible:true,
-			lessonTitle:data.title
+			lessonTitle:data.title,
+			url:data.video
 		})
+	}
+
+	//全屏、退出全屏按钮的回调
+	switchFullScreen = ()=>{
+		console.log('你要全屏');
+		const {isFull} = this.state
+		screenfull.toggle()
+		this.setState({isFull:!isFull})
 	}
 
 	componentDidMount(){
@@ -64,6 +81,7 @@ class List extends Component {
 	}
 
 	render() {
+		const {lessonTitle,visible,url,isFull} = this.state
 		//从状态中获取chapterList
 		const {chapterList} = this.state
 		//表格的列配置(重要)
@@ -117,7 +135,12 @@ class List extends Component {
 						<>
 							<Button type="primary" className="mar_right_btn">新增章节</Button>
 							<Button type="danger">批量删除</Button>
-							<Button type="text" className="link_btn" icon={<FullscreenOutlined/>}/>
+							<Button 
+								size="large"
+								 onClick={this.switchFullScreen} 
+								 className="link_btn" 
+								 icon={isFull ? <FullscreenExitOutlined /> :<FullscreenOutlined/>}
+							/>
 						</>
 					}
 				>
@@ -132,15 +155,16 @@ class List extends Component {
 				</Card>
 				{/* 预览课时弹窗 */}
 				<Modal
-					title={this.state.lessonTitle} //弹窗的标题
-					visible={this.state.visible} //弹窗是否展示
+					title={lessonTitle} //弹窗的标题
+					visible={visible} //弹窗是否展示
 					// onOk={this.handleOk} //确定按钮的回调
 					onCancel={this.handleCancel} //取消按钮的回调
-					footer={null}
+					footer={null} //不展示底部按钮
+					destroyOnClose //关闭弹窗后销毁子元素
 				>
-					<p>Some contents...</p>
-					<p>Some contents...</p>
-					<p>Some contents...</p>
+					<Player>
+						<source src={url} />
+					</Player>
 				</Modal>
 			</>
 	)
