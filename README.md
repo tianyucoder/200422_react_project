@@ -201,4 +201,7 @@
 							observable.subscribe() // 上传开始
 2. 添加课时-获取表单数据
 		注意在自己的上传组件中使用this.props.onChange()去传递上传完毕的视频地址
-3.
+3. 预览视频：
+		使用antd的Modal组件和video-react完成视频播放，注意关闭弹窗时要销毁Modal中的子元素
+4. 使用screenfull做全屏切
+		注意区分：页签全屏和浏览器全屏
