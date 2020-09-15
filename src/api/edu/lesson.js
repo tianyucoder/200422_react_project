@@ -9,3 +9,11 @@ export function reqAllLessonListByCourseId(chapterId) {
     method: "GET",
   });
 }
+
+export function reqAddLesson({chapterId,free,title,video}) {
+  return request({
+    url: `${BASE_URL}/save`,
+		method: "POST",
+		data:{chapterId,free,title,video}
+  });
+}
