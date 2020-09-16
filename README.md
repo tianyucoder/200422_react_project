@@ -205,3 +205,14 @@
 		使用antd的Modal组件和video-react完成视频播放，注意关闭弹窗时要销毁Modal中的子元素
 4. 使用screenfull做全屏切
 		注意区分：页签全屏和浏览器全屏
+
+
+## day06任务
+1. Echarts的基本使用流程(非脚手架环境)
+			(1).引入 <script src="./echarts.min.js"></script>
+			(2).基于准备好的dom，初始化echarts实例
+						var myChart = echarts.init(document.getElementById('main'));
+			(3).指定图表的配置项和数据
+						var option = {}
+			(4).使用指定的配置项和数据显示图表。
+						myChart.setOption(option);
