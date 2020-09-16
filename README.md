@@ -219,7 +219,8 @@
 2. 在react项目中使用Echarts
 			(1). 安装依赖： yarn add echarts echarts-for-react
 			(2). 引入：import ReactEcharts from 'echarts-for-react';
-			(3).
-			(4).
+			(3). 编码：<ReactEcharts option={this.initBarChart()} />
+			备注：要编写可以返回配置对象的initBarChart
 3. antd的栅格组件的使用——————Grid
+			
 			
