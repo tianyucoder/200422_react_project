@@ -167,7 +167,7 @@ class List extends Component {
 					destroyOnClose //关闭弹窗后销毁子元素
 				>
 					<Player>
-						<source src={url} />
+						<source src='https://media.w3.org/2010/05/sintel/trailer_hd.mp4' />
 					</Player>
 				</Modal>
 			</>
