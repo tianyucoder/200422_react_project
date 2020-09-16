@@ -13,6 +13,7 @@ export default class Card extends Component {
 				<section className="content">
 					{content}
 				</section>
+				<hr/>
 				<footer className="footer">
 					{footer}
 				</footer>

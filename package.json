@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.1.0",
     "axios": "^0.19.2",
-    "bizcharts": "^4.0.10",
+    "bizcharts": "^4.0.14",
     "bizcharts-plugin-slider": "^3.0.1",
     "dayjs": "^1.8.29",
     "echarts": "^4.9.0",

@@ -60,19 +60,6 @@
     "@antv/util" "^2.0.9"
     tslib "^1.10.0"
 
-"@antv/component@^0.5.6":
-  version "0.5.7"
-  resolved "https://registry.npm.taobao.org/@antv/component/download/@antv/component-0.5.7.tgz#b658a4e54c5012947abedcc069c922c3e2aebc17"
-  integrity sha1-tlik5UxQEpR6vtzAackiw+KuvBc=
-  dependencies:
-    "@antv/dom-util" "~2.0.1"
-    "@antv/g-base" "~0.4.0"
-    "@antv/matrix-util" "~2.0.4"
-    "@antv/path-util" "~2.0.7"
-    "@antv/scale" "~0.3.1"
-    "@antv/util" "~2.0.0"
-    tslib "^1.10.0"
-
 "@antv/component@^0.6.0", "@antv/component@~0.6.1":
   version "0.6.1"
   resolved "https://registry.npm.taobao.org/@antv/component/download/@antv/component-0.6.1.tgz#fdb624e72b84d07416394f7a1e2284a57f1e410c"
@@ -84,6 +71,20 @@
     "@antv/path-util" "~2.0.7"
     "@antv/scale" "~0.3.1"
     "@antv/util" "~2.0.0"
+    tslib "^1.10.0"
+
+"@antv/component@^0.7.2":
+  version "0.7.3"
+  resolved "https://registry.npm.taobao.org/@antv/component/download/@antv/component-0.7.3.tgz#49733abc3ee8ec46f5c491c15bc6a2ad2a673f99"
+  integrity sha1-SXM6vD7o7Eb1xJHBW8airSpnP5k=
+  dependencies:
+    "@antv/dom-util" "~2.0.1"
+    "@antv/g-base" "~0.5.0"
+    "@antv/matrix-util" "^3.1.0-beta.1"
+    "@antv/path-util" "~2.0.7"
+    "@antv/scale" "~0.3.1"
+    "@antv/util" "~2.0.0"
+    fecha "~4.2.0"
     tslib "^1.10.0"
 
 "@antv/coord@^0.3.0", "@antv/coord@~0.3.0":
@@ -145,6 +146,22 @@
     d3-timer "^1.0.9"
     detect-browser "^5.1.0"
 
+"@antv/g-base@~0.5.0":
+  version "0.5.1"
+  resolved "https://registry.npm.taobao.org/@antv/g-base/download/@antv/g-base-0.5.1.tgz#466b8719ae99e4d26e4e1fffade9db176000de1e"
+  integrity sha1-RmuHGa6Z5NJuTh//renbF2AA3h4=
+  dependencies:
+    "@antv/event-emitter" "^0.1.1"
+    "@antv/g-math" "^0.1.5"
+    "@antv/matrix-util" "^3.1.0-beta.1"
+    "@antv/path-util" "~2.0.5"
+    "@antv/util" "~2.0.0"
+    "@types/d3-timer" "^1.0.9"
+    d3-ease "^1.0.5"
+    d3-interpolate "^1.3.2"
+    d3-timer "^1.0.9"
+    detect-browser "^5.1.0"
+
 "@antv/g-canvas@^0.4.0", "@antv/g-canvas@~0.4.0":
   version "0.4.14"
   resolved "https://registry.npm.taobao.org/@antv/g-canvas/download/@antv/g-canvas-0.4.14.tgz?cache=0&sync_timestamp=1593356207820&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40antv%2Fg-canvas%2Fdownload%2F%40antv%2Fg-canvas-0.4.14.tgz#fb97afdc997ad8fdfd07a4104547c46c61a1b28a"
@@ -172,6 +189,14 @@
     "@antv/util" "~2.0.0"
     gl-matrix "^3.0.0"
 
+"@antv/g-math@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.npm.taobao.org/@antv/g-math/download/@antv/g-math-0.1.5.tgz#8e4498a7bc02b113c11b50373a9b15273139cdef"
+  integrity sha1-jkSYp7wCsRPBG1A3OpsVJzE5ze8=
+  dependencies:
+    "@antv/util" "~2.0.0"
+    gl-matrix "^3.0.0"
+
 "@antv/g-svg@^0.4.0", "@antv/g-svg@~0.4.0":
   version "0.4.7"
   resolved "https://registry.npm.taobao.org/@antv/g-svg/download/@antv/g-svg-0.4.7.tgz?cache=0&sync_timestamp=1589277987651&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40antv%2Fg-svg%2Fdownload%2F%40antv%2Fg-svg-0.4.7.tgz#0d65e1db34e6dfe609aadb3eddf4748db02f0b01"
@@ -187,7 +212,27 @@
   resolved "https://registry.npm.taobao.org/@antv/g2-plugin-slider/download/@antv/g2-plugin-slider-2.1.0.tgz#7f2f5879d33dcfb14dd2b955092ca198ad9152b9"
   integrity sha1-fy9YedM9z7FN0rlVCSyhmK2RUrk=
 
-"@antv/g2@4.0.12", "@antv/g2@~4.0.9":
+"@antv/g2@4.0.15":
+  version "4.0.15"
+  resolved "https://registry.npm.taobao.org/@antv/g2/download/@antv/g2-4.0.15.tgz#68eeee5befd9f2e654f7655f8d3d2935cdd526b8"
+  integrity sha1-aO7uW+/Z8uZU92VfjT0pNc3VJrg=
+  dependencies:
+    "@antv/adjust" "^0.2.1"
+    "@antv/attr" "^0.3.1"
+    "@antv/color-util" "^2.0.2"
+    "@antv/component" "^0.6.0"
+    "@antv/coord" "^0.3.0"
+    "@antv/event-emitter" "~0.1.0"
+    "@antv/g-base" "^0.4.3"
+    "@antv/g-canvas" "^0.4.0"
+    "@antv/g-svg" "^0.4.0"
+    "@antv/matrix-util" "^3.1.0-beta.1"
+    "@antv/path-util" "^2.0.3"
+    "@antv/scale" "^0.3.1"
+    "@antv/util" "~2.0.5"
+    tslib "^2.0.0"
+
+"@antv/g2@~4.0.9":
   version "4.0.12"
   resolved "https://registry.npm.taobao.org/@antv/g2/download/@antv/g2-4.0.12.tgz#3cb582e12499af5f2716c700ec8e781fc77c69ab"
   integrity sha1-PLWC4SSZr18nFscA7I54H8d8aas=
@@ -207,10 +252,10 @@
     "@antv/util" "~2.0.5"
     tslib "^2.0.0"
 
-"@antv/g2plot@1.1.7":
-  version "1.1.7"
-  resolved "https://registry.npm.taobao.org/@antv/g2plot/download/@antv/g2plot-1.1.7.tgz#dcfa55c5ccc829f8a9d7fdf50065c0ec45ff64ee"
-  integrity sha1-3PpVxczIKfip1/31AGXA7EX/ZO4=
+"@antv/g2plot@1.1.23":
+  version "1.1.23"
+  resolved "https://registry.npm.taobao.org/@antv/g2plot/download/@antv/g2plot-1.1.23.tgz#ee9ea2839bef52b1baed01f954d5e0052246228a"
+  integrity sha1-7p6ig5vvUrG67QH5VNXgBSJGIoo=
   dependencies:
     "@antv/component" "~0.6.1"
     "@antv/coord" "~0.3.0"
@@ -250,15 +295,6 @@
     gl-matrix "^3.3.0"
     tslib "^1.10.0"
 
-"@antv/matrix-util@~2.0.4":
-  version "2.0.7"
-  resolved "https://registry.npm.taobao.org/@antv/matrix-util/download/@antv/matrix-util-2.0.7.tgz?cache=0&sync_timestamp=1589262568935&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40antv%2Fmatrix-util%2Fdownload%2F%40antv%2Fmatrix-util-2.0.7.tgz#a5190599d424c1518a1b5eb3a548271d7e98fc44"
-  integrity sha1-pRkFmdQkwVGKG16zpUgnHX6Y/EQ=
-  dependencies:
-    "@antv/gl-matrix" "^2.7.1"
-    "@antv/util" "^2.0.7"
-    tslib "^1.10.0"
-
 "@antv/path-util@^2.0.3", "@antv/path-util@~2.0.5", "@antv/path-util@~2.0.7":
   version "2.0.8"
   resolved "https://registry.npm.taobao.org/@antv/path-util/download/@antv/path-util-2.0.8.tgz#9bc54d2b7198aad988a9cc4a6de9054f26919b84"
@@ -283,7 +319,7 @@
   dependencies:
     tslib "^1.10.0"
 
-"@antv/util@^2.0.5", "@antv/util@^2.0.7", "@antv/util@^2.0.9", "@antv/util@~2.0.0", "@antv/util@~2.0.3", "@antv/util@~2.0.5", "@antv/util@~2.0.7":
+"@antv/util@^2.0.5", "@antv/util@^2.0.9", "@antv/util@~2.0.0", "@antv/util@~2.0.3", "@antv/util@~2.0.5", "@antv/util@~2.0.7":
   version "2.0.9"
   resolved "https://registry.npm.taobao.org/@antv/util/download/@antv/util-2.0.9.tgz#bd3e296a392e11fbe2781fde39d8e70ba1c53ed0"
   integrity sha1-vT4pajkuEfvieB/eOdjnC6HFPtA=
@@ -2771,15 +2807,17 @@ bizcharts-plugin-slider@^3.0.1:
   dependencies:
     "@antv/g2-plugin-slider" "2.1.0"
 
-bizcharts@^4.0.10:
-  version "4.0.10"
-  resolved "https://registry.npm.taobao.org/bizcharts/download/bizcharts-4.0.10.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fbizcharts%2Fdownload%2Fbizcharts-4.0.10.tgz#3b853f6de45120f7ae2ae63eeab106c2deb48e21"
-  integrity sha1-O4U/beRRIPeuKuY+6rEGwt60jiE=
+bizcharts@^4.0.14:
+  version "4.0.14"
+  resolved "https://registry.npm.taobao.org/bizcharts/download/bizcharts-4.0.14.tgz?cache=0&sync_timestamp=1599205456550&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fbizcharts%2Fdownload%2Fbizcharts-4.0.14.tgz#2e431c1fe373d60ffbe3d36ef73a15b6bcc291e8"
+  integrity sha1-LkMcH+Nz1g/749Nu9zoVtrzCkeg=
   dependencies:
-    "@antv/component" "^0.5.6"
-    "@antv/g2" "4.0.12"
-    "@antv/g2plot" "1.1.7"
+    "@antv/component" "^0.7.2"
+    "@antv/g2" "4.0.15"
+    "@antv/g2plot" "1.1.23"
     "@antv/util" "^2.0.5"
+    d3-color "^1.4.1"
+    react-reconciler "^0.25.1"
     resize-observer-polyfill "^1.5.1"
     simple-statistics "^7.1.0"
     warning "^4.0.3"
@@ -3931,6 +3969,11 @@ d3-color@1:
   version "1.4.0"
   resolved "https://registry.npm.taobao.org/d3-color/download/d3-color-1.4.0.tgz#89c45a995ed773b13314f06460df26d60ba0ecaf"
   integrity sha1-icRamV7Xc7EzFPBkYN8m1gug7K8=
+
+d3-color@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.npm.taobao.org/d3-color/download/d3-color-1.4.1.tgz#c52002bf8846ada4424d55d97982fef26eb3bc8a"
+  integrity sha1-xSACv4hGraRCTVXZeYL+8m6zvIo=
 
 d3-composite-projections@^1.2.0:
   version "1.3.2"
@@ -9837,6 +9880,16 @@ react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   resolved "https://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha1-TxonOv38jzSIqMUWv9p4+HI1I2I=
 
+react-reconciler@^0.25.1:
+  version "0.25.1"
+  resolved "https://registry.npm.taobao.org/react-reconciler/download/react-reconciler-0.25.1.tgz#f9814d59d115e1210762287ce987801529363aaa"
+  integrity sha1-+YFNWdEV4SEHYih86YeAFSk2Oqo=
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.19.1"
+
 react-redux@^7.2.0:
   version "7.2.0"
   resolved "https://registry.npm.taobao.org/react-redux/download/react-redux-7.2.0.tgz#f970f62192b3981642fec46fd0db18a074fe879d"
@@ -10479,6 +10532,14 @@ scheduler@^0.19.0:
   version "0.19.0"
   resolved "https://registry.npm.taobao.org/scheduler/download/scheduler-0.19.0.tgz#a715d56302de403df742f4a9be11975b32f5698d"
   integrity sha1-pxXVYwLeQD33QvSpvhGXWzL1aY0=
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+
+scheduler@^0.19.1:
+  version "0.19.1"
+  resolved "https://registry.npm.taobao.org/scheduler/download/scheduler-0.19.1.tgz?cache=0&sync_timestamp=1598614689702&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fscheduler%2Fdownload%2Fscheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
+  integrity sha1-Tz4u0sGn1laB9MhU+oxaHMtA8ZY=
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
