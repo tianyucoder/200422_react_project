@@ -223,4 +223,74 @@
 			备注：要编写可以返回配置对象的initBarChart
 3. antd的栅格组件的使用——————Grid
 			
-			
+4. bizCharts的简单使用
+
+5. Tabs、DatePicker组件的使用
+
+6. 国际化
+		明确：
+				1.国际化是实时翻译吗？——————不是！！！
+				2.国际化需要提前定义语言包
+				3.国际化分为：
+							骨架的国际化：前端自己就可以做
+							内容的国际化：需要后端多种语言数据的支持
+		自定义国际化-具体步骤如下：
+							1).社区精选组件===>应用国际化===>react-intl
+							2).yarn add react-intl
+							3).创建语言包（中文、英文）
+										src/locales/zh_CN.json
+										src/locales/zh_TW.json
+										src/locales/en.json
+							4).App.js中如下操作：
+										【1】引入：
+												//引入国际化库
+												import {IntlProvider} from 'react-intl'
+												//引入所有语言包
+												import {zh_CN,zh_TW,en} from './locales'
+										【2】创建当前语言环境
+												<Router history={history}>
+													<IntlProvider 
+														messages={zh_TW} //指定使用哪个语言包
+													>
+														<Layout/>
+													</IntlProvider>
+												</Router>
+							5).基本使用：
+									方案一：
+											在要国际化的组件中引入：import {FormattedMessage} from 'react-intl'
+											要国际化的文字，改成：<FormattedMessage id="title"/>
+									方案二：
+											在要国际化的组件中引入：import {Xxxxxx,injectIntl} from 'react-intl'
+											装饰：
+												@injectIntl
+												class SearchCourse extends Component{}
+												export default SearchCourse
+											要国际化的文字，改成：this.props.intl.formatMessage({id:'title'})
+							6).更多用法：
+										<FormattedMessage 
+											id="title" 
+											values={{name:'tom',age:19}}
+											// tagName='button'
+											/* values={{
+												name:<button style={{backgroundColor:'red'}}>tom</button>,
+												age:<button style={{backgroundColor:'blue'}}>19</button>
+											}} */
+										>
+											{(p1,p2)=>{
+												console.log(p1,p2);
+												return <Button>{p1},{p2}</Button>
+											}}
+										</FormattedMessage>
+						（2）.antd国际化-具体步骤如下：
+										引入：
+												//引入antd的国际化库
+												import {ConfigProvider} from 'antd'
+												//引入antd的语言包
+												import en from 'antd/es/locale/en_US';
+												import zh_CN from 'antd/es/locale/zh_CN';
+												import zh_TW from 'antd/es/locale/zh_TW';
+										创建语言环境
+												<ConfigProvider locale={具体的语言包}>
+													.....
+												<ConfigProvider/>
+
