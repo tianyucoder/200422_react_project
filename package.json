@@ -12,7 +12,7 @@
     "bizcharts": "^4.0.10",
     "bizcharts-plugin-slider": "^3.0.1",
     "dayjs": "^1.8.29",
-    "echarts": "^4.8.0",
+    "echarts": "^4.9.0",
     "echarts-for-react": "^2.0.16",
     "mockjs": "^1.1.0",
     "moment": "^2.27.0",

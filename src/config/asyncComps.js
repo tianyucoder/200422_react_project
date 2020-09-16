@@ -17,6 +17,7 @@ const AddSubject = () => lazy(() => import("@/pages/Edu/Subject/components/AddSu
 const Chapter = () => lazy(() => import("@/pages/Edu/Chapter"));
 const AddLesson = () => lazy(() => import("@/pages/Edu/Chapter/components/AddLesson"));
 const TestUpload = () => lazy(() => import("@/pages/Edu/TestUpload"));
+const TestEcharts = () => lazy(() => import("@/pages/Edu/TestEcharts"));
 
 export default {
   Admin,
@@ -34,5 +35,6 @@ export default {
 	AddSubject,
 	Chapter,
 	AddLesson,
-	TestUpload
+	TestUpload,
+	TestEcharts
 };

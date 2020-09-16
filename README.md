@@ -216,3 +216,10 @@
 						var option = {}
 			(4).使用指定的配置项和数据显示图表。
 						myChart.setOption(option);
+2. 在react项目中使用Echarts
+			(1). 安装依赖： yarn add echarts echarts-for-react
+			(2). 引入：import ReactEcharts from 'echarts-for-react';
+			(3).
+			(4).
+3. antd的栅格组件的使用——————Grid
+			
