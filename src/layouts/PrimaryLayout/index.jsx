@@ -168,7 +168,6 @@ class PrimaryLayout extends Component {
 
     return (
       <Layout className="layout">
-				<button onClick={this.demo}>点我</button>
 				{/* 左侧导航区-----start */}
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className="logo">

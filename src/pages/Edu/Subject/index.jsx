@@ -15,12 +15,14 @@ import {
 	reqUpdateSubject,
 	reqDeleteSubject
 } from '@/api/edu/subject'
+import {saveSubject} from './redux'
+import {connect} from 'react-redux'
 //引入样式
 import './index.less'
 //引入便捷弹窗组件
 const {confirm} = Modal
 
-export default class Subject extends Component {
+class Subject extends Component {
 
 	state = {
 		no1SubjectInfo:{ //存储一级分类数据
@@ -51,6 +53,7 @@ export default class Subject extends Component {
 			expandedRowKeys:[],//清空之前展开过的分类
 			loading:false //是否处于加载中
 		})
+		this.props.saveSubject({items,total})
 	}
 
 	//点击展开按钮的回调
@@ -144,8 +147,8 @@ export default class Subject extends Component {
 		title: 	<>确定删除<span className="delte_title">{title}</span>吗</>, //弹窗主标题
 			icon: <ExclamationCircleOutlined />,//图标
 			content: '删除后无法回复，谨慎操作',//弹窗副标题
-			okText:'确定',
-			cancelText:'取消',
+			// okText:'确定',
+			// cancelText:'取消',
 			onOk:async ()=> {
 				await reqDeleteSubject(_id)
 				message.success('删除分类成功！')
@@ -258,3 +261,10 @@ export default class Subject extends Component {
 		)
 	}
 }
+
+export default connect(
+	()=>({}),
+	{
+		saveSubject
+	}
+)(Subject)
