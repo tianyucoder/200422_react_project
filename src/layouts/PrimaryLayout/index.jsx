@@ -5,7 +5,8 @@ import {
   MenuFoldOutlined,
   UserOutlined,
   SettingOutlined,
-  LogoutOutlined,
+	LogoutOutlined,
+	GlobalOutlined
 } from "@ant-design/icons";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
@@ -15,6 +16,7 @@ import { logout } from "@/redux/actions/login";
 import { resetUser } from "../../components/Authorized/redux";
 import logo from "@/assets/images/logo.png";
 import { findPathIndex } from "@/utils/tools";
+import {changeLanguage} from '@/redux/actions/language'
 import "@/assets/css/common.less";// 引入组件公共样式
 import "./index.less";
 
@@ -27,20 +29,23 @@ const { Header, Sider, Content } = Layout;
   {
     logout,
 		resetUser,
+		changeLanguage
   }
 )
 @withRouter
 class PrimaryLayout extends Component {
   state = {
-    collapsed: false,
+    collapsed: false, //标识左侧导航展开或收缩
   };
 
+	//折叠、展开左侧导航的回调
   toggle = () => {
     this.setState({
       collapsed: !this.state.collapsed,
     });
   };
 
+	//退出登录的回调
   logout = ({ key }) => {
 		console.log('logout');
     if (key !== "2") return;
@@ -51,6 +56,12 @@ class PrimaryLayout extends Component {
     });
 	};
 
+	changeLanguage = ({key})=>{
+		//通知redux存储当前要用的语言
+		this.props.changeLanguage(key)
+	}
+
+	//用户头像鼠标悬浮的下拉菜单
   menu = (
     <Menu style={{ width: 150 }} onClick={this.logout}>
       <Menu.Item key="0">
@@ -72,7 +83,23 @@ class PrimaryLayout extends Component {
       </Menu.Item>
     </Menu>
 	);
+
+  languageMenu = (
+    <Menu style={{ width: 110 }} onClick={this.changeLanguage}>
+      <Menu.Item key="zh_CN">
+				中文简体
+      </Menu.Item>
+      <Menu.Item key="zh_TW">
+				中文繁體
+      </Menu.Item>
+      <Menu.Item key="en">
+        English
+      </Menu.Item>
+    </Menu>
+	);
+
 	
+	//维护菜单和路由的对应关系
   selectRoute = (routes = [], pathname) => {
     for (let i = 0; i < routes.length; i++) {
       const route = routes[i];
@@ -106,6 +133,7 @@ class PrimaryLayout extends Component {
     }
   };
 
+	//渲染面包屑导航
   renderBreadcrumb = (route) => {
     if (this.props.location.pathname === "/") {
       return (
@@ -140,6 +168,7 @@ class PrimaryLayout extends Component {
 
     return (
       <Layout className="layout">
+				<button onClick={this.demo}>点我</button>
 				{/* 左侧导航区-----start */}
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className="logo">
@@ -168,6 +197,11 @@ class PrimaryLayout extends Component {
                     <span>{user.name}</span>
                   </span>
                 </Dropdown>
+								<Dropdown overlay={this.languageMenu}>
+                  <span className="site-layout-user" className="lang">
+										<GlobalOutlined />
+                  </span>
+                </Dropdown>
               </span>
             </span>
           </Header>
@@ -183,7 +217,7 @@ class PrimaryLayout extends Component {
         </Layout>
       </Layout>
     );
-  }
+	}
 }
 
 export default PrimaryLayout;
