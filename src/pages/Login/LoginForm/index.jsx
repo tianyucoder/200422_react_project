@@ -27,10 +27,16 @@ class LoginForm extends Component {
 		this.props.history.replace("/");
 	}
 
-	handleLogin = async()=>{
-		let {username,password} = this.refs.loginForm.getFieldsValue()
-		let response = await this.props.login(username, password)
-		this.gotoAdmin(response)
+	handleLogin = async(values)=>{
+		//获取用户输入的用户名、密码
+		const {username,password} = values
+		let token = await this.props.login(username, password)
+		this.gotoAdmin(token)
+
+		//原理的如下：
+		// let {username,password} = this.refs.loginForm.getFieldsValue()
+		// let response = await this.props.login(username, password)
+		// this.gotoAdmin(response)
 	}
 
   render() {
@@ -38,11 +44,11 @@ class LoginForm extends Component {
       <>
         <Form
 					ref="loginForm"
-          name="normal_login"
-          className="login-form"
+					name="normal_login"
+					onFinish={this.handleLogin}
+					className="login-form"
         >
           <Tabs
-						onChange={key=>this.setState({loginType:key})}
             defaultActiveKey="user"
             tabBarStyle={{ display: "flex", justifyContent: "center" }}
           >
@@ -53,7 +59,7 @@ class LoginForm extends Component {
                   placeholder="用户名：admin"
                 />
               </Item>
-              <Item name="password" rules={[{required:true,message:'用户名必须填写'}]}>
+              <Item name="password" rules={[{required:true,message:'密码必须填写'}]}>
                 <Input
                   prefix={<LockOutlined className="form-icon" />}
                   type="password"
@@ -61,32 +67,15 @@ class LoginForm extends Component {
                 />
               </Item>
             </TabPane>
-						{/* <TabPane tab="手机号登录" key="phone">
-							<Item name="phone">
-                <Input
-                  prefix={<MobileOutlined className="form-icon" />}
-                  placeholder="手机号"
-                />
-              </Item>
-              <Row justify="space-between">
-                <Col span={13}>
-									<Item name="verify">
-                    <Input
-                      prefix={<MailOutlined className="form-icon" />}
-                      placeholder="验证码"
-                    />
-                  </Item>
-                </Col>
-                <Col span={10}>
-									<Button onClick={this.getVerifyCode} className="verify-btn">获取验证码</Button>
-                </Col>
-              </Row>
-            </TabPane> */}
+						<TabPane tab="手机登录" key="phone">
+								此处写一些手机号登录的UI
+						</TabPane>
 					</Tabs>
           <Item>
             <Button
               type="primary"
-							onClick={this.handleLogin}
+							// onClick={this.handleLogin}
+							htmlType="submit"
               className="login-form-button"
             >
               登录
