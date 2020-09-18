@@ -55,8 +55,8 @@ class Search extends Component {
 					onFinish={this.handleFinish} //表单提交的回调
 				>
 					<Item 
-						label={<FormattedMessage id="select_course"/>} //输入框左侧的提示文字
-						// label={this.props.intl.formatMessage({id:'select_course'})} //输入框左侧的提示文字
+						// label={<FormattedMessage id="select_course"/>} //输入框左侧的提示文字
+						label={this.props.intl.formatMessage({id:'select_course'})} //输入框左侧的提示文字
 						name="courseId" //Item的名字
 						// wrapperCol={{span:4}}  //wrapperCol区域的宽度
 						rules={[

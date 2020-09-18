@@ -143,8 +143,8 @@ export default class Admin extends Component {
 	}
 
 	//日期选择器中日期范围改变的回调
-	getDate = (a,b)=>{
-		console.log(a,b);
+	getDate = (a,date)=>{
+		console.log(a,date);
 	}
 
 	render() {
