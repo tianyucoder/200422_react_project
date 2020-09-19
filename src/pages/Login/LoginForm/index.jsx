@@ -14,6 +14,7 @@ import { withRouter } from "react-router-dom";
 import { login,loginSuccessSync } from "@/redux/actions/login";
 import {reqVerifyCode} from '@/api/phone'
 import {reqPhoneLogin} from '@/api/acl/login'
+import {CLIENT_ID,AUTH_URL} from '@/config/oauth'
 import "./index.less";
 
 const { TabPane } = Tabs;
@@ -77,6 +78,10 @@ class LoginForm extends Component {
 		},1000)
 		await reqVerifyCode(phone)
 		message.success('验证码下发成功，请注意查收')
+	}
+
+	gotoGithubAuth = ()=>{
+		window.location.href = `${AUTH_URL}?client_id=${CLIENT_ID}`
 	}
 
   render() {
@@ -156,7 +161,7 @@ class LoginForm extends Component {
               <Col>
                 <span>
                   第三方账号登录：
-                  <GithubOutlined className="login-icon" />
+                  <GithubOutlined onClick={this.gotoGithubAuth} className="login-icon" />
                   <WechatOutlined className="login-icon" />
                   <QqOutlined className="login-icon" />
                 </span>
